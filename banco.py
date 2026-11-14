@@ -28,3 +28,12 @@ def cadastrar_aluno(nome, idade, curso):
     )
     conexao.commit()
     conexao.close()
+
+
+def listar_alunos():
+    conexao = conectar()
+    cursor = conexao.cursor()
+    cursor.execute("SELECT id, nome, idade, curso FROM alunos")
+    alunos = cursor.fetchall()
+    conexao.close()
+    return alunos
