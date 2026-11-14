@@ -18,3 +18,13 @@ def criar_tabela():
     """)
     conexao.commit()
     conexao.close()
+
+
+def cadastrar_aluno(nome, idade, curso):
+    conexao = conectar()
+    cursor = conexao.cursor()
+    cursor.execute(
+        "INSERT INTO alunos (nome, idade, curso) VALUES (?, ?, ?)", (nome, idade, curso)
+    )
+    conexao.commit()
+    conexao.close()
