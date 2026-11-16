@@ -1,10 +1,10 @@
 from banco import (
-    criar_tabela,
-    cadastrar_aluno,
-    listar_alunos,
-    buscar_aluno,
     atualizar_aluno,
+    buscar_aluno,
+    cadastrar_aluno,
+    criar_tabela,
     excluir_aluno,
+    listar_alunos,
 )
 
 
