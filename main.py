@@ -1,10 +1,19 @@
-from banco import criar_tabela, cadastrar_aluno, listar_alunos
+from banco import (
+    criar_tabela,
+    cadastrar_aluno,
+    listar_alunos,
+    buscar_aluno,
+    atualizar_aluno,
+    excluir_aluno,
+)
 
 
 def menu():
     print("\n=== CADASTRO DE ALUNOS ===")
     print("1 - Cadastrar aluno")
     print("2 - Listar alunos")
+    print("3 - Editar aluno")
+    print("4 - Excluir aluno")
     print("0 - Sair")
     return input("Escolha uma opção: ")
 
@@ -47,6 +56,42 @@ def listar():
         )
 
 
+def ler_id():
+    while True:
+        try:
+            return int(input("ID do aluno: "))
+        except ValueError:
+            print("ID inválido! Digite apenas números.")
+
+
+def editar():
+    id_aluno = ler_id()
+    aluno = buscar_aluno(id_aluno)
+    if aluno is None:
+        print("Aluno não encontrado.")
+        return
+    print(f"Editando: {aluno[1]} | {aluno[2]} anos | {aluno[3]}")
+    nome = ler_texto("Novo nome: ")
+    idade = ler_idade()
+    curso = ler_texto("Novo curso: ")
+    atualizar_aluno(id_aluno, nome, idade, curso)
+    print("Aluno atualizado com sucesso!")
+
+
+def excluir():
+    id_aluno = ler_id()
+    aluno = buscar_aluno(id_aluno)
+    if aluno is None:
+        print("Aluno não encontrado.")
+        return
+    confirmacao = input(f"Excluir {aluno[1]}? (s/n): ").strip().lower()
+    if confirmacao == "s":
+        excluir_aluno(id_aluno)
+        print("Aluno excluído com sucesso!")
+    else:
+        print("Operação cancelada.")
+
+
 def main():
     criar_tabela()
     while True:
@@ -55,6 +100,10 @@ def main():
             cadastrar()
         elif opcao == "2":
             listar()
+        elif opcao == "3":
+            editar()
+        elif opcao == "4":
+            excluir()
         elif opcao == "0":
             print("Até logo!")
             break

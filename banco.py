@@ -37,3 +37,33 @@ def listar_alunos():
     alunos = cursor.fetchall()
     conexao.close()
     return alunos
+
+
+def buscar_aluno(id_aluno):
+    conexao = conectar()
+    cursor = conexao.cursor()
+    cursor.execute(
+        "SELECT id, nome, idade, curso FROM alunos WHERE id = ?", (id_aluno,)
+    )
+    aluno = cursor.fetchone()
+    conexao.close()
+    return aluno
+
+
+def atualizar_aluno(id_aluno, nome, idade, curso):
+    conexao = conectar()
+    cursor = conexao.cursor()
+    cursor.execute(
+        "UPDATE alunos SET nome = ?, idade = ?, curso = ? WHERE id = ?",
+        (nome, idade, curso, id_aluno),
+    )
+    conexao.commit()
+    conexao.close()
+
+
+def excluir_aluno(id_aluno):
+    conexao = conectar()
+    cursor = conexao.cursor()
+    cursor.execute("DELETE FROM alunos WHERE id = ?", (id_aluno,))
+    conexao.commit()
+    conexao.close()
